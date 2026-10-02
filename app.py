@@ -10,7 +10,9 @@ app = Flask(__name__)
 def index():
     # 新しい順（created_atの降順）で全件取得する
     posts = Post.select().order_by(Post.created_at.desc())
-    return render_template("index.html", posts=posts)
+    # 投稿件数
+    count = posts.count()
+    return render_template("index.html", posts=posts, count=count)
 
 
 # 投稿(POST)
@@ -18,6 +20,9 @@ def index():
 def create():
     name = request.form["name"]
     body = request.form["body"]
+    # 名前か本文が空なら保存しないで一覧に戻る
+    if name == "" or body == "":
+        return redirect(url_for("index"))
     Post.create(name=name, body=body)
     # 保存できたら一覧へリダイレクトする
     return redirect(url_for("index"))

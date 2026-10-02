@@ -15,10 +15,13 @@
     </form>
     <hr>
 
+    <!-- 投稿件数 -->
+    <p>全 {{ count }} 件</p>
+
     <!-- 投稿一覧 -->
     {% for post in posts %}
         <p>
-            <strong>{{ post.name }}</strong> ({{ post.created_at }})<br>
+            <strong>{{ post.name }}</strong> ({{ post.created_at.strftime("%Y/%m/%d %H:%M") }})<br>
             {{ post.body }}
         </p>
         <!-- 削除ボタン（POSTで送る） -->
