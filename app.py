@@ -23,5 +23,17 @@ def create():
     return redirect(url_for("index"))
 
 
+# 削除（POST）
+@app.route("/posts/<int:post_id>/delete", methods=["POST"])
+def delete(post_id):
+    try:
+        post = Post.get_by_id(post_id)
+    except Post.DoesNotExist:
+        return redirect(url_for("index"))
+
+    post.delete_instance()
+    return redirect(url_for("index"))
+
+
 if __name__ == "__main__":
     app.run(port=8000, debug=True)

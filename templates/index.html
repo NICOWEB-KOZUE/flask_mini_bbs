@@ -15,11 +15,16 @@
     </form>
     <hr>
 
+    <!-- 投稿一覧 -->
     {% for post in posts %}
         <p>
             <strong>{{ post.name }}</strong> ({{ post.created_at }})<br>
             {{ post.body }}
         </p>
+        <!-- 削除ボタン（POSTで送る） -->
+        <form action="/posts/{{ post.id }}/delete" method="post">
+            <input type="submit" value="削除">
+        </form>
         <hr>
     {% endfor %}
 </body>
