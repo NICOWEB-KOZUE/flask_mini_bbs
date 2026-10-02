@@ -1,5 +1,4 @@
-from flask import Flask, render_template
-from peewee import PostgresqlDatabase
+from flask import Flask, render_template, request, redirect, url_for
 
 from models import Post
 
@@ -12,6 +11,16 @@ def index():
     # 新しい順（created_atの降順）で全件取得する
     posts = Post.select().order_by(Post.created_at.desc())
     return render_template("index.html", posts=posts)
+
+
+# 投稿(POST)
+@app.route("/posts", methods=["POST"])
+def create():
+    name = request.form["name"]
+    body = request.form["body"]
+    Post.create(name=name, body=body)
+    # 保存できたら一覧へリダイレクトする
+    return redirect(url_for("index"))
 
 
 if __name__ == "__main__":
