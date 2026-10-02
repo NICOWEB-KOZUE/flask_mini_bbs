@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ミニ掲示板</title>
+</head>
+<body>
+    <h1>ミニ掲示板</h1>
+
+    <hr>
+
+    {% for post in posts %}
+        <p>
+            <strong>{{ post.name }}</strong> ({{ post.created_at }})<br>
+            {{ post.body }}
+        </p>
+        <hr>
+    {% endfor %}
+</body>
+</html>
